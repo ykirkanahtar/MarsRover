@@ -1,5 +1,6 @@
 ﻿using Hepsiburada.MarsRover.Business.Models;
-using Hepsiburada.MarsRover.ConsoleApp;
+using Hepsiburada.MarsRover.ConsoleApp.Constants;
+using Hepsiburada.MarsRover.ConsoleApp.Processes;
 using Hepsiburada.MarsRover.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -15,25 +16,32 @@ namespace Hepsiburada.MarsRover.Tests
         [TestInitialize]
         public void Setup()
         {
-            _plateau = PlateauHelper.CreatePlateau("5 5");
+            _plateau = new PlateauProcess().CreatePlateau("5 5");
+        }
+
+        private RoverProcess GetRoverHelper(string inputValue)
+        {
+            var roverHelper = new RoverProcess();
+            _ = roverHelper.CreateRover(inputValue) as Rover;
+            return roverHelper;
         }
 
         [TestMethod]
         public void Rover_Successfull()
         {
-            var rover = new RoverHelper(_plateau).CreateRover("1 3 N");
+            var roverHelper = GetRoverHelper("1 3 N");
 
-            Assert.AreEqual(rover.Point.PositionX, 1);
-            Assert.AreEqual(rover.Point.PositionY, 3);
+            Assert.AreEqual(roverHelper.GetRover().Point.PositionX, 1);
+            Assert.AreEqual(roverHelper.GetRover().Point.PositionY, 3);
         }
 
         [TestMethod]
         public void Rover_Lower_Case()
         {
-            var rover = new RoverHelper(_plateau).CreateRover("1 3 N");
+            var roverHelper = GetRoverHelper("1 3 n");
 
-            Assert.AreEqual(rover.Point.PositionX, 1);
-            Assert.AreEqual(rover.Point.PositionY, 3);
+            Assert.AreEqual(roverHelper.GetRover().Point.PositionX, 1);
+            Assert.AreEqual(roverHelper.GetRover().Point.PositionY, 3);
         }
 
         [TestMethod]
@@ -41,7 +49,7 @@ namespace Hepsiburada.MarsRover.Tests
         {
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                new RoverHelper(_plateau).CreateRover("1 3");
+                var roverHelper = GetRoverHelper("1 3");
             });
 
             Assert.AreEqual(
@@ -54,7 +62,7 @@ namespace Hepsiburada.MarsRover.Tests
         {
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                new RoverHelper(_plateau).CreateRover("A 3 N");
+                var roverHelper = GetRoverHelper("A 3 N");
             });
 
             Assert.AreEqual(Constants.NUMERIC_VALUR_ERROR, ex.Message);
@@ -65,7 +73,7 @@ namespace Hepsiburada.MarsRover.Tests
         {
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                new RoverHelper(_plateau).CreateRover("1 A N");
+                var roverHelper = GetRoverHelper("1 A N");
             });
 
             Assert.AreEqual(Constants.NUMERIC_VALUR_ERROR, ex.Message);
@@ -76,7 +84,7 @@ namespace Hepsiburada.MarsRover.Tests
         {
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                new RoverHelper(_plateau).CreateRover("1 3 1");
+                var roverHelper = GetRoverHelper("1 3 1");
             });
 
             Assert.AreEqual(ConsoleConstants.ROVER_INVALID_DIRECTION, ex.Message);
@@ -87,7 +95,7 @@ namespace Hepsiburada.MarsRover.Tests
         {
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                new RoverHelper(_plateau).CreateRover("1 3 C");
+                var roverHelper = GetRoverHelper("1 3 C");
             });
 
             Assert.AreEqual(ConsoleConstants.ROVER_INVALID_DIRECTION, ex.Message);
@@ -98,7 +106,7 @@ namespace Hepsiburada.MarsRover.Tests
         {
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                new RoverHelper(_plateau).CreateRover("-1 3 N");
+                var roverHelper = GetRoverHelper("-1 3 N");
             });
 
             Assert.AreEqual(Constants.NEGATIVE_VALUE_ERROR, ex.Message);
@@ -109,7 +117,7 @@ namespace Hepsiburada.MarsRover.Tests
         {
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                new RoverHelper(_plateau).CreateRover("1 -3 N");
+                var roverHelper = GetRoverHelper("1 -3 N");
             });
 
             Assert.AreEqual(Constants.NEGATIVE_VALUE_ERROR, ex.Message);

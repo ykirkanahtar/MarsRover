@@ -1,14 +1,14 @@
-﻿using Hepsiburada.MarsRover.Business.Factories;
-using Hepsiburada.MarsRover.Business.Models;
+﻿using Hepsiburada.MarsRover.Business.Models;
+using Hepsiburada.MarsRover.ConsoleApp.Constants;
 using Hepsiburada.MarsRover.Utils;
 using System;
 
-namespace Hepsiburada.MarsRover.ConsoleApp
+namespace Hepsiburada.MarsRover.ConsoleApp.Processes
 {
 
-    public static class PlateauHelper
+    public class PlateauProcess : IPlateauProcess
     {
-        public static Plateau CreatePlateau(string inputValue)
+        public Plateau CreatePlateau(string inputValue)
         {
             try
             {
@@ -17,7 +17,7 @@ namespace Hepsiburada.MarsRover.ConsoleApp
                 array.CheckArraySize(ConsoleConstants.PLATEAU_ARRAY_SIZE, string.Format(ConsoleConstants.ARRAY_SIZE_ERROR, ConsoleConstants.PLATEAU_ARRAY_SIZE));
                 var plateauCoordinates = array.ConvertToIntArray();
 
-                return Plateau.GetInstance(new Point(plateauCoordinates[0], plateauCoordinates[1]));               
+                return Plateau.GetInstance(new Point(plateauCoordinates[0], plateauCoordinates[1]));
             }
             catch (Exception ex)
             {

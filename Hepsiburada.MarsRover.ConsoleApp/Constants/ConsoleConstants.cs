@@ -1,4 +1,4 @@
-﻿namespace Hepsiburada.MarsRover.ConsoleApp
+﻿namespace Hepsiburada.MarsRover.ConsoleApp.Constants
 {
     public static class ConsoleConstants
     {
@@ -14,7 +14,7 @@
         public const string SEPARATOR = " ";
 
         public const string ARRAY_SIZE_ERROR = "Input value must have {0} items.";
-              
+
         public const string ROVER_INVALID_DIRECTION = "Rover coordinates must be numeric value.";
         public const string ROVER_ROUTE_HAS_BUSY_POINTS = "There is another rover(s) in this route.";
         public const string ROVER_ROUTE_BORDER_LIMIT_ERROR = "Rover can not cross the borders.";

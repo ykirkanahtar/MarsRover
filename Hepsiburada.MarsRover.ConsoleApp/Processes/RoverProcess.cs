@@ -1,23 +1,18 @@
 ﻿using Hepsiburada.MarsRover.Business.Factories;
 using Hepsiburada.MarsRover.Business.Models;
 using Hepsiburada.MarsRover.Business.VehicleCommands;
+using Hepsiburada.MarsRover.ConsoleApp.Constants;
 using Hepsiburada.MarsRover.Utils;
 using Hepsiburada.MarsRover.Utils.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Hepsiburada.MarsRover.ConsoleApp
+namespace Hepsiburada.MarsRover.ConsoleApp.Processes
 {
-    public class RoverHelper : IRoverHelper
+    public class RoverProcess : IRoverProcess
     {
-        private readonly Plateau _plateau;
         private Rover _rover;
-
-        public RoverHelper(Plateau plateau)
-        {
-            _plateau = plateau;
-        }
 
         public Rover CreateRover(string inputValue)
         {
@@ -45,7 +40,7 @@ namespace Hepsiburada.MarsRover.ConsoleApp
             }
         }
 
-        public void ProcessMovements(IVehicleMover vehicleMover, IList<IPoint> busyPoints, string inputMovement)
+        public void ProcessMovements(Plateau plateau, IVehicleMover vehicleMover, IList<IPoint> busyPoints, string inputMovement)
         {
             try
             {
@@ -55,7 +50,7 @@ namespace Hepsiburada.MarsRover.ConsoleApp
                 var rotationValues = Enum.GetValues(typeof(Rotation)).Cast<Rotation>().ToList();
                 var rotations = movements.ConvertToRotations(string.Format(ConsoleConstants.ROTATION_ENUM_VALUE_ERROR, string.Join(", ", rotationValues)));
 
-                vehicleMover.MoveVehicle(_plateau, _rover, rotations, busyPoints);
+                vehicleMover.MoveVehicle(plateau, _rover, rotations, busyPoints);
             }
             catch (Exception ex)
             {

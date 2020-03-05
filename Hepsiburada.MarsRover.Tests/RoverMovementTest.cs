@@ -2,7 +2,8 @@
 using Hepsiburada.MarsRover.Business.Functions;
 using Hepsiburada.MarsRover.Business.Models;
 using Hepsiburada.MarsRover.Business.VehicleCommands;
-using Hepsiburada.MarsRover.ConsoleApp;
+using Hepsiburada.MarsRover.ConsoleApp.Constants;
+using Hepsiburada.MarsRover.ConsoleApp.Processes;
 using Hepsiburada.MarsRover.Utils;
 using Hepsiburada.MarsRover.Utils.Enums;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,41 +27,40 @@ namespace Hepsiburada.MarsRover.Tests
         [TestInitialize]
         public void Setup()
         {
-            _plateau = PlateauHelper.CreatePlateau("5 5");
-        }
-
-        private RoverHelper GetRoverHelper()
-        {
-            var roverHelper = new RoverHelper(_plateau);
-            var rover = roverHelper.CreateRover("1 2 N") as Rover;
-            return roverHelper;
+            _plateau = new PlateauProcess().CreatePlateau("5 5");
         }
 
         private Rover GetRover(string inputValue)
         {
-            var roverHelper = new RoverHelper(_plateau);
-            return roverHelper.CreateRover(inputValue) as Rover;
+            return new RoverProcess().CreateRover(inputValue) as Rover;
+        }
+
+        private RoverProcess GetRoverHelper(string inputValue)
+        {
+            var roverHelper = new RoverProcess();
+            _ = roverHelper.CreateRover(inputValue) as Rover;
+            return roverHelper;
         }
 
         [TestMethod]
         public void RoverMovement_Successfull()
         {
-            var roverHelper = GetRoverHelper();
-            var rover = roverHelper.GetRover();
+            var roverHelper = GetRoverHelper("1 2 N");
+            roverHelper.ProcessMovements(_plateau, _vehicleMover, new List<IPoint>(), "LMLMLMLMM");
 
-            roverHelper.ProcessMovements(_vehicleMover, new List<IPoint>(), "LMLMLMLMM");
-
-            Assert.AreEqual(rover.Point.PositionX, 1);
-            Assert.AreEqual(rover.Point.PositionY, 3);
-            Assert.AreEqual(rover.GetDirection(), Direction.N);
+            Assert.AreEqual(roverHelper.GetRover().Point.PositionX, 1);
+            Assert.AreEqual(roverHelper.GetRover().Point.PositionY, 3);
+            Assert.AreEqual(roverHelper.GetRover().GetDirection(), Direction.N);
         }
 
         [TestMethod]
         public void Rover_Invalid_Rotation_Value()
         {
+            var roverHelper = GetRoverHelper("1 2 N");
+
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                GetRoverHelper().ProcessMovements(_vehicleMover, new List<IPoint>(), "BMLMLMLMM");
+                roverHelper.ProcessMovements(_plateau, _vehicleMover, new List<IPoint>(), "BMLMLMLMM");
             });
 
             var rotationValues = Enum.GetValues(typeof(Rotation)).Cast<Rotation>().ToList();
@@ -73,10 +73,12 @@ namespace Hepsiburada.MarsRover.Tests
         [TestMethod]
         public void Rover_Busy_Point_Error()
         {
+            var roverHelper = GetRoverHelper("1 2 N");
+
             var busyPoint = new List<IPoint>() { new Point(1, 3) };
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                GetRoverHelper().ProcessMovements(_vehicleMover, busyPoint, "LMLMLMLMM");
+                roverHelper.ProcessMovements(_plateau, _vehicleMover, busyPoint, "LMLMLMLMM");
             });
 
             Assert.AreEqual(
@@ -87,9 +89,11 @@ namespace Hepsiburada.MarsRover.Tests
         [TestMethod]
         public void Rover_Border_Error1()
         {
+            var roverHelper = GetRoverHelper("1 2 N");
+
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                GetRoverHelper().ProcessMovements(_vehicleMover, new List<IPoint>(), "MMMM");
+                roverHelper.ProcessMovements(_plateau, _vehicleMover, new List<IPoint>(), "MMMM");
             });
 
             Assert.AreEqual(
@@ -100,9 +104,11 @@ namespace Hepsiburada.MarsRover.Tests
         [TestMethod]
         public void Rover_Border_Error2()
         {
+            var roverHelper = GetRoverHelper("1 2 N");
+
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                GetRoverHelper().ProcessMovements(_vehicleMover, new List<IPoint>(), "RMMMMM");
+                roverHelper.ProcessMovements(_plateau, _vehicleMover, new List<IPoint>(), "RMMMMM");
             });
 
             Assert.AreEqual(
@@ -113,9 +119,11 @@ namespace Hepsiburada.MarsRover.Tests
         [TestMethod]
         public void Rover_Border_Negative_Error1()
         {
+            var roverHelper = GetRoverHelper("1 2 N");
+
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                GetRoverHelper().ProcessMovements(_vehicleMover, new List<IPoint>(), "LMM");
+                roverHelper.ProcessMovements(_plateau, _vehicleMover, new List<IPoint>(), "LMM");
             });
 
             Assert.AreEqual(
@@ -126,9 +134,11 @@ namespace Hepsiburada.MarsRover.Tests
         [TestMethod]
         public void Rover_Border_Negative_Error2()
         {
+            var roverHelper = GetRoverHelper("1 2 N");
+
             var ex = Assert.ThrowsException<Exception>(() =>
             {
-                GetRoverHelper().ProcessMovements(_vehicleMover, new List<IPoint>(), "LLMMM");
+                roverHelper.ProcessMovements(_plateau, _vehicleMover, new List<IPoint>(), "LLMMM");
             });
 
             Assert.AreEqual(
