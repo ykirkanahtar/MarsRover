@@ -14,7 +14,7 @@ namespace Hepsiburada.MarsRover.ConsoleApp.Processes
     {
         private Rover _rover;
 
-        public Rover CreateRover(string inputValue)
+        public Rover CreateRover(Plateau plateau, string inputValue)
         {
             try
             {
@@ -28,7 +28,7 @@ namespace Hepsiburada.MarsRover.ConsoleApp.Processes
                 var point = new Point(xValue, yValue);
                 var direction = roverPositions[2].ParseEnum<Direction>(ConsoleConstants.ROVER_INVALID_DIRECTION);
 
-                _rover = ExplorationVehicles.Rover.Factory(point, direction) as Rover;
+                _rover = ExplorationVehicles.Rover.Factory(point, direction, plateau) as Rover;
                 return _rover;
             }
             catch (Exception ex)

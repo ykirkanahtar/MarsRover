@@ -1,13 +1,19 @@
-﻿using Hepsiburada.MarsRover.Business.Factories;
+﻿using Hepsiburada.MarsRover.Business.Constants;
+using Hepsiburada.MarsRover.Business.Factories;
 using Hepsiburada.MarsRover.Business.VehicleStates;
+using Hepsiburada.MarsRover.Utils;
 using Hepsiburada.MarsRover.Utils.Enums;
 
 namespace Hepsiburada.MarsRover.Business.Models
 {
     public abstract class ExplorationVehicle
     {
-        protected ExplorationVehicle(IPoint point, Direction direction)
+        protected readonly Plateau Plateau;
+        protected ExplorationVehicle(IPoint point, Direction direction, Plateau plateau)
         {
+            Plateau = plateau;
+            CheckPlateauBorder(point);
+
             Point = point;
             VehicleState = direction.SetInitial();
         }
@@ -39,5 +45,14 @@ namespace Hepsiburada.MarsRover.Business.Models
         {
             return $"{Point.PositionX} {Point.PositionY} {GetDirection()}";
         }
+
+        private void CheckPlateauBorder(IPoint point)
+        {
+            if (point.PositionX > Plateau.UpperRightCoordinates.PositionX
+                ||
+                point.PositionY > Plateau.UpperRightCoordinates.PositionY)
+                throw new HandledException(BusinessConstants.BORDER_ERROR);
+        }
+
     }
 }

@@ -32,13 +32,13 @@ namespace Hepsiburada.MarsRover.Tests
 
         private Rover GetRover(string inputValue)
         {
-            return new RoverProcess().CreateRover(inputValue) as Rover;
+            return new RoverProcess().CreateRover(_plateau, inputValue) as Rover;
         }
 
         private RoverProcess GetRoverHelper(string inputValue)
         {
             var roverHelper = new RoverProcess();
-            _ = roverHelper.CreateRover(inputValue) as Rover;
+            _ = roverHelper.CreateRover(_plateau, inputValue) as Rover;
             return roverHelper;
         }
 

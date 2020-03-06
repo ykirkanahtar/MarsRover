@@ -6,7 +6,7 @@ namespace Hepsiburada.MarsRover.ConsoleApp.Processes
 {
     public interface IRoverProcess
     {
-        Rover CreateRover(string inputValue);
+        Rover CreateRover(Plateau plateau, string inputValue);
         void ProcessMovements(Plateau plateau, IVehicleMover vehicleMover, IList<IPoint> busyPoints, string inputMovement);
     }
 }

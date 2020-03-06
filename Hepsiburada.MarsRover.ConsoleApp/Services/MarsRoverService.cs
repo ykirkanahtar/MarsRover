@@ -81,7 +81,7 @@ namespace Hepsiburada.MarsRover.ConsoleApp.Services
                     {
                         Console.WriteLine(ConsoleConstants.ENTER_ROVER_COORDINATES);
 
-                        var rover = _roverHelper.CreateRover(Console.ReadLine());
+                        var rover = _roverHelper.CreateRover(plateau, Console.ReadLine());
 
                         Console.WriteLine(ConsoleConstants.ENTER_MOTION_SETS);
 

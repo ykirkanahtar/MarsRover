@@ -13,7 +13,7 @@ namespace Hepsiburada.MarsRover.Business.VehicleCommands
             var vehiclePoint = new Point(vehicle.Point.PositionX, vehicle.Point.PositionY);
             var direction = vehicle.GetDirection();
 
-            var virtualVehicle = ExplorationVehicles.Rover.Factory(vehiclePoint, direction);
+            var virtualVehicle = ExplorationVehicles.Rover.Factory(vehiclePoint, direction, plateau);
             var destinationPoint = VehicleHelperFunctions.CheckBusyPointsRoute(virtualVehicle, rotations, busyPoints);
             VehicleHelperFunctions.CheckBorderLimits(plateau, destinationPoint);
 

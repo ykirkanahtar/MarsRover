@@ -1,4 +1,5 @@
-﻿using Hepsiburada.MarsRover.Business.Models;
+﻿using Hepsiburada.MarsRover.Business.Constants;
+using Hepsiburada.MarsRover.Business.Models;
 using Hepsiburada.MarsRover.ConsoleApp.Constants;
 using Hepsiburada.MarsRover.ConsoleApp.Processes;
 using Hepsiburada.MarsRover.Utils;
@@ -22,7 +23,7 @@ namespace Hepsiburada.MarsRover.Tests
         private RoverProcess GetRoverHelper(string inputValue)
         {
             var roverHelper = new RoverProcess();
-            _ = roverHelper.CreateRover(inputValue) as Rover;
+            _ = roverHelper.CreateRover(_plateau, inputValue) as Rover;
             return roverHelper;
         }
 
@@ -121,6 +122,30 @@ namespace Hepsiburada.MarsRover.Tests
             });
 
             Assert.AreEqual(Constants.NEGATIVE_VALUE_ERROR, ex.Message);
+        }
+
+        [TestMethod]
+        public void Rover_Cross_Border1()
+        {
+            
+            var ex = Assert.ThrowsException<Exception>(() =>
+            {
+                var roverHelper = GetRoverHelper($"{(_plateau.UpperRightCoordinates.PositionX + 1).ToString()} 3 N");
+            });
+
+            Assert.AreEqual(BusinessConstants.BORDER_ERROR, ex.Message);
+        }
+
+        [TestMethod]
+        public void Rover_Cross_Border2()
+        {
+
+            var ex = Assert.ThrowsException<Exception>(() =>
+            {
+                var roverHelper = GetRoverHelper($"1 {(_plateau.UpperRightCoordinates.PositionY + 1).ToString()} N");
+            });
+
+            Assert.AreEqual(BusinessConstants.BORDER_ERROR, ex.Message);
         }
     }
 }
