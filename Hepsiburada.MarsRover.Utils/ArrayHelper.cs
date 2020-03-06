@@ -2,10 +2,9 @@
 {
     public static class ArrayHelper
     {
-        public static void CheckArraySize(this string[] array, int size, string exception = null)
+        public static bool IsSameSize(this string[] array, int size)
         {
-            if (array.Length != size)
-                throw new HandledException(exception ?? Constants.ARRAY_SIZE_ERROR);
+            return (array.Length == size);
         }
 
         public static int[] ConvertToIntArray(this string[] array)

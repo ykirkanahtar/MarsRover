@@ -1,6 +1,6 @@
 ﻿namespace Hepsiburada.MarsRover.Utils
 {
-    public static class Constants
+    public static class UtilsConstants
     {
         public const string ARRAY_SIZE_ERROR = "Size and array length are different";
         public const string NEGATIVE_VALUE_ERROR = "Value can not be less than zero";

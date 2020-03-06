@@ -15,13 +15,17 @@ namespace Hepsiburada.MarsRover.Business.Models
 
         public void SetPositionX(int value)
         {
-            value.CheckNegative();
+            if (!value.IsPositive())
+                throw new HandledException(UtilsConstants.NEGATIVE_VALUE_ERROR);
+
             PositionX = value;
         }
 
         public void SetPositionY(int value)
         {
-            value.CheckNegative();
+            if (!value.IsPositive())
+                throw new HandledException(UtilsConstants.NEGATIVE_VALUE_ERROR);
+
             PositionY = value;
         }
     }

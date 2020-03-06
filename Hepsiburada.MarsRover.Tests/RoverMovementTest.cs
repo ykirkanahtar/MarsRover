@@ -127,7 +127,7 @@ namespace Hepsiburada.MarsRover.Tests
             });
 
             Assert.AreEqual(
-                Constants.NEGATIVE_VALUE_ERROR
+                UtilsConstants.NEGATIVE_VALUE_ERROR
                 , ex.Message);
         }
 
@@ -142,7 +142,7 @@ namespace Hepsiburada.MarsRover.Tests
             });
 
             Assert.AreEqual(
-                Constants.NEGATIVE_VALUE_ERROR
+                UtilsConstants.NEGATIVE_VALUE_ERROR
                 , ex.Message);
         }
 

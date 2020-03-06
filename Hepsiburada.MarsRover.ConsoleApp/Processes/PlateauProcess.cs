@@ -14,7 +14,9 @@ namespace Hepsiburada.MarsRover.ConsoleApp.Processes
             {
                 var array = inputValue.Split(ConsoleConstants.SEPARATOR);
 
-                array.CheckArraySize(ConsoleConstants.PLATEAU_ARRAY_SIZE, string.Format(ConsoleConstants.ARRAY_SIZE_ERROR, ConsoleConstants.PLATEAU_ARRAY_SIZE));
+                if(!array.IsSameSize(ConsoleConstants.PLATEAU_ARRAY_SIZE))
+                    throw new HandledException(string.Format(ConsoleConstants.ARRAY_SIZE_ERROR, ConsoleConstants.PLATEAU_ARRAY_SIZE));
+
                 var plateauCoordinates = array.ConvertToIntArray();
 
                 return Plateau.GetInstance(new Point(plateauCoordinates[0], plateauCoordinates[1]));

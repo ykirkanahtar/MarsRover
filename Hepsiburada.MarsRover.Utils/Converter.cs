@@ -10,7 +10,7 @@ namespace Hepsiburada.MarsRover.Utils
         {
             if (Int32.TryParse(value, out _)) //Prevent to enter numeric value
             {
-                throw new HandledException(exception ?? Constants.INVALID_ENUM_VALUE_ERROR);
+                throw new HandledException(exception ?? UtilsConstants.INVALID_ENUM_VALUE_ERROR);
             }
 
             if (Enum.TryParse(typeof(T), value, out var enumValue))
@@ -18,7 +18,7 @@ namespace Hepsiburada.MarsRover.Utils
                 return (T)enumValue;
             }
 
-            throw new HandledException(exception ?? Constants.INVALID_ENUM_VALUE_ERROR);
+            throw new HandledException(exception ?? UtilsConstants.INVALID_ENUM_VALUE_ERROR);
         }
 
         public static int ConvertToInt(this string value)
@@ -29,7 +29,7 @@ namespace Hepsiburada.MarsRover.Utils
                 return numericValue;
             }
             else
-                throw new HandledException(Constants.NUMERIC_VALUR_ERROR);
+                throw new HandledException(UtilsConstants.NUMERIC_VALUR_ERROR);
         }
 
         public static List<Rotation> ConvertToRotations(this IList<char> items, string exception = null)

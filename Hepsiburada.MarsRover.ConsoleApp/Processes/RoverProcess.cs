@@ -20,7 +20,8 @@ namespace Hepsiburada.MarsRover.ConsoleApp.Processes
             {
                 var roverPositions = inputValue.ToUpper().Split(ConsoleConstants.SEPARATOR);
 
-                roverPositions.CheckArraySize(ConsoleConstants.ROVER_ARRAY_SIZE, string.Format(ConsoleConstants.ARRAY_SIZE_ERROR, ConsoleConstants.ROVER_ARRAY_SIZE));
+                if(!roverPositions.IsSameSize(ConsoleConstants.ROVER_ARRAY_SIZE))
+                    throw new HandledException(string.Format(ConsoleConstants.ARRAY_SIZE_ERROR, ConsoleConstants.ROVER_ARRAY_SIZE));
 
                 var xValue = roverPositions[0].ConvertToInt();
                 var yValue = roverPositions[1].ConvertToInt();

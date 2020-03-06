@@ -66,7 +66,7 @@ namespace Hepsiburada.MarsRover.Tests
                 var roverHelper = GetRoverHelper("A 3 N");
             });
 
-            Assert.AreEqual(Constants.NUMERIC_VALUR_ERROR, ex.Message);
+            Assert.AreEqual(UtilsConstants.NUMERIC_VALUR_ERROR, ex.Message);
         }
 
         [TestMethod]
@@ -77,7 +77,7 @@ namespace Hepsiburada.MarsRover.Tests
                 var roverHelper = GetRoverHelper("1 A N");
             });
 
-            Assert.AreEqual(Constants.NUMERIC_VALUR_ERROR, ex.Message);
+            Assert.AreEqual(UtilsConstants.NUMERIC_VALUR_ERROR, ex.Message);
         }
 
         [TestMethod]
@@ -110,7 +110,7 @@ namespace Hepsiburada.MarsRover.Tests
                 var roverHelper = GetRoverHelper("-1 3 N");
             });
 
-            Assert.AreEqual(Constants.NEGATIVE_VALUE_ERROR, ex.Message);
+            Assert.AreEqual(UtilsConstants.NEGATIVE_VALUE_ERROR, ex.Message);
         }
 
         [TestMethod]
@@ -121,7 +121,7 @@ namespace Hepsiburada.MarsRover.Tests
                 var roverHelper = GetRoverHelper("1 -3 N");
             });
 
-            Assert.AreEqual(Constants.NEGATIVE_VALUE_ERROR, ex.Message);
+            Assert.AreEqual(UtilsConstants.NEGATIVE_VALUE_ERROR, ex.Message);
         }
 
         [TestMethod]

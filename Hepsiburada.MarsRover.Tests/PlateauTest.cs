@@ -47,7 +47,7 @@ namespace Hepsiburada.MarsRover.Tests
                GetNewPlateauHelper().CreatePlateau("A B");
             });
 
-            Assert.AreEqual(Constants.NUMERIC_VALUR_ERROR, ex.Message);
+            Assert.AreEqual(UtilsConstants.NUMERIC_VALUR_ERROR, ex.Message);
         }
 
         [TestMethod]
@@ -82,7 +82,7 @@ namespace Hepsiburada.MarsRover.Tests
                GetNewPlateauHelper().CreatePlateau("1 -1");
             });
 
-            Assert.AreEqual(Constants.NEGATIVE_VALUE_ERROR, ex.Message);
+            Assert.AreEqual(UtilsConstants.NEGATIVE_VALUE_ERROR, ex.Message);
         }
 
         [TestMethod]
@@ -93,7 +93,7 @@ namespace Hepsiburada.MarsRover.Tests
                GetNewPlateauHelper().CreatePlateau("-1 1");
             });
 
-            Assert.AreEqual(Constants.NEGATIVE_VALUE_ERROR, ex.Message);
+            Assert.AreEqual(UtilsConstants.NEGATIVE_VALUE_ERROR, ex.Message);
         }
 
         [TestMethod]
